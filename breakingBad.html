@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>breaking bad</title>
+    <link rel="stylesheet" href="style.css">
+
+    <div class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Breaking_Bad_logo.svg/1024px-Breaking_Bad_logo.svg.png" alt="" class="logo">
+    </div>
+    <div class="container">
+        <img id="image" src="" alt="">
+        <div class="details">
+            <h1 id="name"></h1>
+            <h3 id="nickname"></h3>
+            <h2 id="portrayed">played by</h2>
+        </div>
+    </div>
+    
+</head>
+<body>
+    <script>
+        const characters = async () => {
+            const response = await fetch("https://www.breakingbadapi.com/api/character/random")
+            const data = await response.json()
+            
+            return data
+        }
+
+        characters().then(data => {
+            console.log(data)
+            data.map(item => {
+                const image = document.getElementById('image')
+                const name = document.getElementById('name')
+                const nickname = document.getElementById('nickname')
+                const portrayed = document.getElementById('portrayed')
+                image.src = item.img
+                name.innerText = item.name
+                nickname.innerText = "("+item.nickname+")"
+                portrayed.innerText += " '"+item.portrayed+"'"
+            })
+        })
+
+
+    </script>
+</body>
+</html>
+
